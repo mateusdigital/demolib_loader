@@ -2,17 +2,20 @@
 //------------------------------------------------------------------------------
 function demolib_load_script(filename)
 {
-    const url = "/modules/demos/starfield/" + filename;
+    const url = filename;
 
     return new Promise((resolve, reject)=> {
         const script = document.createElement("script");
-        script.src = url;
+        script.src   = url;
 
         script.addEventListener("load", ()=> {
+            console.log("Loaded:", url);
+
             resolve(true);
         });
-        console.log("Loaded:", url);
+
         document.head.appendChild(script);
+        console.log("Loading:", url);
     });
 }
 
