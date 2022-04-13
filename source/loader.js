@@ -1,21 +1,29 @@
-
 //------------------------------------------------------------------------------
 function demolib_load_script(filename, path_prefix = "/")
 {
     const url = (path_prefix + filename).replace("//","/");
 
     return new Promise((resolve, reject)=> {
-        const script = document.createElement("script");
-        script.src   = url;
+        const last_dot  = filename.lastIndexOf(".");
+        const extension = filename.substring(last_dot);
 
-        script.addEventListener("load", ()=> {
+        let elem = null;
+        if(extension == ".js") {
+            elem = document.createElement("script");
+            elem.src = url;
+        } else if(extension == ".css") {
+            elem = document.createElement("link");
+            elem.rel = "stylesheet";
+            elem.href= url
+        }
+
+        elem.addEventListener("load", ()=> {
             console.log("Loaded:", url);
-
             resolve(true);
         });
 
-        document.head.appendChild(script);
         console.log("Loading:", url);
+        document.head.appendChild(elem);
     });
 }
 
