@@ -1,7 +1,6 @@
 //------------------------------------------------------------------------------
-function demolib_load_script(filename, path_prefix = "/")
-{
-    const url = (path_prefix + filename).replace("//","/");
+function demolib_load_script(dirname, filename) {
+    const url = (dirname + "/" + filename).replace("//","/");
 
     return new Promise((resolve, reject)=> {
         const last_dot  = filename.lastIndexOf(".");
@@ -28,11 +27,11 @@ function demolib_load_script(filename, path_prefix = "/")
 }
 
 //------------------------------------------------------------------------------
-async function demolib_load_all_scripts(script_filenames, path_prefix) {
+async function demolib_load_all_scripts(dirname, script_filenames) {
     const promises = [];
     for(let i = 0; i < script_filenames.length; ++i) {
         const filename = script_filenames[i];
-        const promise  = demolib_load_script(filename, path_prefix);
+        const promise  = demolib_load_script(dirname, filename);
         promises.push(promise);
     }
 
